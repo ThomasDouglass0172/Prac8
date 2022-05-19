@@ -15,7 +15,7 @@ void setNext(Node* next);
 
 private: 
 int data=0;  
-Node* next;
+Node* next =nullptr;
 
 };
 

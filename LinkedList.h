@@ -18,6 +18,7 @@ void deleteEnd();
 void deletePosition(int position); 
 int getItem(int position);
 void printItems();
+~LinkedList();
 
 private: 
 Node* head= NULL; 

@@ -52,48 +52,64 @@ void LinkedList::addEnd(int newItem){
 
 
 void LinkedList::addAtPosition(int position, int newItem){
-    int count=0; 
-        Node* newNode = new Node(); 
-        newNode-> setData(newItem); 
-        newNode-> setNext(nullptr); 
-   if (position<1){
-       //cout<<"outside range"<<endl; 
-   } 
-
+    int count=position; 
+    Node* newNode = new Node(); 
+    newNode-> setData(newItem); 
+    newNode-> setNext(nullptr); 
+    Node* temp = head; 
+    Node* previous = nullptr;
+    Node* behind =nullptr; 
+    if (position<=1){
+        addFront(newItem); 
+        return; 
+    }
    else{
-       Node* temp = head; 
-       Node* previous = nullptr;
-       while(count>0 || temp->getNext() != nullptr){
+
+       while(temp->getNext() != nullptr){
+           if (temp->getNext() == nullptr){
+               cout<<count; 
+               addEnd(newItem);
+               return; 
+           }
+           if (count==0){
+
+               break; 
+           }
+
+           behind=previous;
            previous = temp; 
            temp= temp->getNext();
 
            count--; 
        }
-       if (temp->getNext() ==nullptr){
-            cout<<"outside range"<<endl; 
+       if (count>=1){
+           previous->setNext(newNode);
+           newNode->setNext(temp);
+           return;
        }
-       previous->setNext(newNode);
-       newNode->setNext(temp); 
+       behind->setNext(newNode);
+       newNode->setNext(previous); 
    }
 } 
 int LinkedList::search(int item){
     int position=1; 
     Node* temp = head; 
-    Node* previous = nullptr;
-    while(temp->getData()!=item || temp->getNext() != nullptr){
-        previous = temp; 
-        temp= temp->getNext();
-        position++; 
-
+    while(temp->getNext() != nullptr){
+        if (temp->getData()==item){
+            break; 
+        }
+         temp= temp->getNext();
+         position++; 
     }
     if (temp->getNext()==nullptr){
         cout<<"0 ";
         return 0; 
     }
     else{
-        cout<<previous->getNext()<<" "<<temp->getData(); 
+        cout<<position<<" ";
         return position;  
     }
+    return position;
 }
 
    
@@ -126,13 +142,21 @@ void LinkedList::deletePosition(int position){
         head=temp->getNext(); 
     }
     else{
-    while(temp->getNext() !=nullptr || count!=position){
+    while(temp->getNext() !=nullptr){
+        if (count==position){
+            break; 
+        }
         previous=temp;  
         temp= temp->getNext(); 
         count++; 
     }
     if (temp->getNext() == nullptr){
-        cout<<"outside range"; 
+        if (count==position){
+            deleteEnd(); 
+        }
+        else{
+        cout<<"outside range";
+        } 
     }
     else{
         previous->setNext(temp->getNext()); 
@@ -148,14 +172,24 @@ if (position<1){
     return std::numeric_limits < int >::max(); 
 }
 Node* temp = head; 
-while(count!=position || temp->getNext() != nullptr){
+while( temp->getNext() != nullptr){
+    if (count==position){
+        break;
+    }
     temp= temp->getNext();
     count++; 
 
 }
 if (temp->getNext() == nullptr){
+    if (count==position){
+    cout<<temp->getData()<<" "; 
+    return temp->getData();
+    }
+    else{
     cout<<std::numeric_limits < int >::max()<<" "; 
     return std::numeric_limits < int >::max(); 
+    }
+
 }
 else{
     cout<<temp->getData()<<" "; 
@@ -171,4 +205,14 @@ while(temp->getNext() != nullptr){
     temp= temp->getNext();
 }
     cout<<temp->getData(); 
+}
+
+LinkedList::~LinkedList(){
+Node* current = head;
+while( current != 0 ) {
+    Node* next = current->getNext();
+    delete current;
+    current = next;
+}
+head = 0;
 }
