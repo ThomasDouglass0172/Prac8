@@ -1,29 +1,30 @@
 #include "LinkedList.h"
 #include "Node.h"
-#include <vector>
 #include <iostream> 
 #include <string> 
 #include <algorithm> 
 #include <limits>
+#include <array>
 using namespace std; 
 
 
 int main(){
 
-vector<int> sequence; 
+int sequence[100]; 
 int num=0; 
 string function; 
 int parameter1; 
 int parameter2; 
+int size =0; 
 
 while(cin>>num){
-    sequence.emplace_back(num); 
+
+    sequence[size]=num; 
+    size++; 
+
 }
 cin.clear(); 
 cin>>function>>parameter1>>parameter2;  
-
-
-int size = sequence.size();  
 
 LinkedList linky(sequence, size) ;
 

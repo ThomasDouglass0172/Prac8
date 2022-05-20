@@ -10,7 +10,7 @@ LinkedList::LinkedList(){
 }
 
 
-LinkedList::LinkedList(vector<int> sequence, int size){
+LinkedList::LinkedList(int sequence[], int size){
     Node* temp = new Node(); 
     temp -> setData(sequence[0]);
     temp -> setNext(nullptr);

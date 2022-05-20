@@ -2,13 +2,13 @@
 #define LINKEDLIST_H
 #include <iostream> 
 #include "Node.h"
-#include <vector> 
+#include <array> 
 
 class LinkedList {
 
 public:
 LinkedList(); 
-LinkedList(std::vector<int> sequence, int size); 
+LinkedList(int sequence[], int size); 
 void addFront(int newItem);
 void addEnd(int newItem); 
 void addAtPosition(int position, int newItem); 
